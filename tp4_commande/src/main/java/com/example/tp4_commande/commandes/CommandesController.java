@@ -166,6 +166,26 @@ public class CommandesController {
         return new ModelAndView("/store/printCommande", model);
     }
 
+
+    // @PostMapping("/validateCommande")
+    // public RedirectView validateCommande(
+    //     @RequestParam Long id,
+    //     HttpSession session,
+    //     RedirectAttributes redirectAttributes
+    // ){
+    //     Long idCommande = (Long) session.getAttribute("idCommande");
+    //     System.out.println("check ======> idCommande: In validate commande " + idCommande);
+
+    //     if(idCommande == null){
+    //         redirectAttributes.addFlashAttribute("error", "No item yet to display!!!");
+    //         return new RedirectView("/commandes/commandes");
+    //     }
+
+    //     comService.deleteById(id);
+    //     return new RedirectView("/commandes/commandes");
+    // }
+
+
     @GetMapping("/test")
     public ModelAndView test(
         HttpSession session

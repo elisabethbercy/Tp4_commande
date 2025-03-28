@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.tp4_commande.commandes.Commandes;
-import com.example.tp2.tp4_commande.CommandesInterface;
+import com.example.tp4_commande.commandes.CommandesInterface;
 
 import jakarta.servlet.http.HttpSession;
 
