@@ -84,6 +84,7 @@ public class ArticlesServices implements ArticlesInterface {
             List<Articles> articles = aRepo.findByCommandes(cmdToValidate);
 
             for(Articles article : articles){
+                //article <= correct
                 cProducer.produce(article);
             }
 

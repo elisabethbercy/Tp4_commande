@@ -34,7 +34,7 @@ public class CommandesController {
     private UserService usrService;
 
     @Autowired
-    private CommandesRepository com_repo;
+    private CommandesRepository comRepo;
 
     @Autowired
     private ArticlesServices artService;
@@ -175,31 +175,38 @@ public class CommandesController {
         return new ModelAndView("/store/printCommande", model);
     }
 
-    @GetMapping("/validateCommande")
-    public ModelAndView validateCommande(
+    @PostMapping("/validateCommande")
+    public RedirectView validateCommande(
         @RequestParam Long id,
         HttpSession session,
         RedirectAttributes redirectAttributes) {
-        //Long idCommande = (Long) session.getAttribute("idCommande");
     
-        Optional<Commandes> commande = comService.findById(id);
 
-
-        
-        if (commande.isPresent()) {
-            Commandes cmdToValidate = commande.get();
-            System.out.println("check ======> idCommande: In validate commande " + cmdToValidate.getId());
-
+        if (session.getAttribute("user_email") == null) {
+            return new RedirectView("/store/connected");
+        }
+    
+        Optional<Commandes> cmdToValidate = comService.findById(id);
+    
+        if (cmdToValidate != null) {
+    
+      
             artService.validateArticleByID(id);
-            comService.deleteCommandeById(id);
+    
+           
+            comRepo.delete(cmdToValidate.get());
+    
             
             redirectAttributes.addFlashAttribute("successValidated", "Commande validated successfully!");
-            return new ModelAndView("redirect:/commandes/commandes");
-
+    
+          
+            return new RedirectView("/commandes/commandes");
         } else {
-            return new ModelAndView("redirect:/store/connected");
+            
+            return new RedirectView("/store/connected");
         }
     }
+    
 
 
 

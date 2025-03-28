@@ -13,7 +13,7 @@ import com.example.tp4_commande.users.Users;
 public class CommandesServices implements CommandesInterface{
 
     @Autowired
-    private CommandesRepository c_repo;
+    private CommandesRepository cRepo;
 
 
     @Override
@@ -21,13 +21,13 @@ public class CommandesServices implements CommandesInterface{
         Commandes commandes = new Commandes();
         commandes.setNomCommande(nomCommande);
         commandes.setUsers(users);
-        return c_repo.save(commandes);
+        return cRepo.save(commandes);
         
     }
 
 
     public List<Commandes> getCommandesByUsers(Users users){
-        return c_repo.findByUsers(users);
+        return cRepo.findByUsers(users);
 
         // check this
     }
@@ -36,11 +36,11 @@ public class CommandesServices implements CommandesInterface{
 
     @Override
     public List<Commandes> findAll() {
-        return c_repo.findAll();
+        return cRepo.findAll();
     }
 
     public List<Commandes> findByUsers(Users  users){
-        return c_repo.findByUserEmail(users.getEmail());
+        return cRepo.findByUserEmail(users.getEmail());
     }
 
 
@@ -48,26 +48,28 @@ public class CommandesServices implements CommandesInterface{
     public Commandes connected() {
        var usr1 = new Users("Bercy","Stephanie","bercy@gmail.com","1234");
        var com1 = new Commandes("Boissons",usr1);
-      return c_repo.save(com1);
+      return cRepo.save(com1);
 
     }
 
 
     @Override
     public List<Commandes> findByNomCommande(String nomCommande) {
-        return c_repo.findByNomCommande(nomCommande);
+        return cRepo.findByNomCommande(nomCommande);
     }
 
 
     @Override
     public Optional<Commandes> findById(Long id) {
-        return c_repo.findById(id);
+        return cRepo.findById(id);
     }
 
 
     @Override
-    public void deleteCommandeById(Long id) {
+    public void deleteCommandeById(Commandes commandes) {
         
-        c_repo.deleteById(id);
+        if (commandes != null) {
+            cRepo.delete(commandes);
+        }
     }
 }

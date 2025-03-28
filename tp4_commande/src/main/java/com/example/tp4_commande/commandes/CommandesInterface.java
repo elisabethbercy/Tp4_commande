@@ -21,5 +21,5 @@ public interface CommandesInterface {
 
     Commandes connected();
 
-    void deleteCommandeById(Long id);
+    void deleteCommandeById(Commandes commandes);
 }

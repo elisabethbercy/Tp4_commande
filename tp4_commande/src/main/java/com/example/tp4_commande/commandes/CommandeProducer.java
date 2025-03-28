@@ -25,7 +25,7 @@ public class CommandeProducer {
     // }
 
     public void produce(Commandes commandes) {
-        //produce 
+        
         try {
             String cmessage = objectMapper.writeValueAsString(commandes);
             kafkaTemplate.send("commandes-topic", cmessage);
@@ -40,6 +40,7 @@ public class CommandeProducer {
     public void produce(Articles articles) {
         try {
             String amessage = objectMapper.writeValueAsString(articles);
+            //nomArticle // qteArticle 
             kafkaTemplate.send("articles-topic", amessage);
 
             System.out.println("Articles a Kafka: " + amessage);

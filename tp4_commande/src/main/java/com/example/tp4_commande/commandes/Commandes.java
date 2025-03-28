@@ -36,7 +36,7 @@ public class Commandes {
     private Users users;
 
     // joining nomCommande column to article table
-    @OneToMany(mappedBy = "commandes", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "commandes", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Articles> articles;
 
     public Commandes(String nomCommande, Users users) {
