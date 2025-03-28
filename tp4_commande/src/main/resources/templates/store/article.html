@@ -120,6 +120,14 @@
         </form>
 
 
+        <th:block th:if="${not #lists.isEmpty(articles)}">
+	    <form action="/commandes/validateCommande" method="post">
+	        <input type="hidden" name="idCommande" th:value="${session.idCommande}" />
+	        <button type="submit">Confirm Command</button>
+	    </form>
+	    </th:block>
+
+
         <!-- <form action="/commandes/validateCommande/{id}" method="post">
             <label for="validate">Confirm Command</label>
             <input type="submit" value="Validate" />

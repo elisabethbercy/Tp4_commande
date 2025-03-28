@@ -177,7 +177,7 @@ public class CommandesController {
 
     @PostMapping("/validateCommande")
     public RedirectView validateCommande(
-        @RequestParam Long id,
+        @RequestParam Long idCommande,
         HttpSession session,
         RedirectAttributes redirectAttributes) {
     
@@ -186,12 +186,12 @@ public class CommandesController {
             return new RedirectView("/store/connected");
         }
     
-        Optional<Commandes> cmdToValidate = comService.findById(id);
+        Optional<Commandes> cmdToValidate = comService.findById(idCommande);
     
         if (cmdToValidate != null) {
     
       
-            artService.validateArticleByID(id);
+            artService.validateArticleByID(idCommande);
     
            
             comRepo.delete(cmdToValidate.get());

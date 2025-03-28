@@ -1,6 +1,7 @@
 package com.example.tp4_commande.articles;
 
 import com.example.tp4_commande.commandes.Commandes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +25,7 @@ public class Articles {
 
     // joining commande  nomCommande column to article table
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id")
     private Commandes commandes;    
 

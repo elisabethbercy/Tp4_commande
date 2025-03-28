@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.tp4_commande.commandes.Commandes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -29,7 +30,8 @@ public class Users {
 	private String nom;
 	private String prenom;
 	private String motdepasse;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Commandes> commandes;
 
