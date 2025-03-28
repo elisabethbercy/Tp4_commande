@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Commande</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .commande-details table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .commande-details th, .commande-details td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .commande-details th {
+            background-color: #f2f2f2;
+        }
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .button-container form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        button {
+            background-color: whitesmoke;
+            color: black;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        .print {
+            background-color: #28a745;
+        }
+        .print:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div th:if="${session.nomCommande != null}" class="header">
+            <h1>Command <span th:text="${session.nomCommande}"></span> Details</h1>
+        </div>
+        <div class="commande-details">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="article : ${articles}">
+                        <td th:text="${article.nomArticle}"></td>
+                        <td th:text="${article.qteArticle}"></td>
+                        <td th:text="${article.prixArticle}"></td>
+                        <td th:text="${article.prixArticle * article.qteArticle} + ' € '"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"><strong>Total:</strong></td>
+                        <td th:text="${#aggregates.sum(articles.![prixArticle * qteArticle])} + ' €'"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+        <div class="button-container">
+            <form action="/articles/backToCommande" method="post">
+                <button type="submit">Back to Command Lists</button> 
+            </form>
+            <form action="/articles/backToNewArticle" method="post">
+                <button type="submit">Add New Item</button> 
+            </form>
+            
+            <form id="logoutForm" action="/store/logout" method="post">
+                <button type="submit" form="logoutForm">Log Out</button>
+            </form>
+
+
+            <button class="print" onclick="window.print()">Print</button>
+        </div>
+    </div>
+</body>
+</html>

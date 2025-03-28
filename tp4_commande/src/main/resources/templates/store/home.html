@@ -1,0 +1,117 @@
+<!-- <html xmlns:th="https://www.thymeleaf.org">
+	<body>
+		<h1> User Log In</h1>
+		<p th:if="${error}"><span th:text="${error}"></span><p/>
+        <p th:if="${success}"><span th:text="${success}"></span><p/>
+		
+		<form action="/store/login" method="post">
+		<tr> Email : <input name="email" /> </tr>
+		<tr> Mot de passe : <input name="motdepasse" /> </tr>
+		<input type="submit" />
+		</form>
+		<hr></hr>
+		
+		
+		
+		<h1> User creation</h1>
+		<form action="/store/create" method="post">
+		<p th:if="${creation_ok}"><span th:text="${error}"></span><p/>
+		
+		<tr> Nom : <input name="nom" /> </tr>
+		<tr>Prenom : <input name="prenom" /></tr>
+		<tr>Email : <input name="email" /></tr>
+		<tr>Mot de passe : <input name="motdepasse" /></tr>
+		<input type="submit" />
+		</form>
+		
+		
+		
+		
+			
+	</body>
+	
+</html> -->
+
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>User Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            max-width: 400px;
+        }
+        h1 {
+            font-size: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color:whitesmoke;
+            color: black;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>User Log In</h1>
+    <p th:if="${error}" class="message" th:text="${error}"></p>
+    <p th:if="${success}" class="message" style="color: green;" th:text="${success}"></p>
+
+    <form action="/store/login" method="post">
+        <label>Email:</label>
+        <input type="email" name="email" required />
+
+        <label>Mot de passe:</label>
+        <input type="password" name="motdepasse" required />
+
+        <input type="submit" value="Log in" />
+    </form>
+
+    <hr>
+
+    <h1>User Sign in</h1>
+    <p th:if="${creation_ok}" class="message" style="color: green;" th:text="${creationOk}"></p>
+	<p th:if="${errorMessage}" class="message" style="color: red;" th:text="${errorMessage}"></p>
+
+
+    <form action="/store/create" method="post">
+        <label>Nom:</label>
+        <input name="nom" required />
+
+        <label>Prénom:</label>
+        <input name="prenom" required />
+
+        <label>Email:</label>
+        <input type="email" name="email" required />
+
+        <label>Mot de passe:</label>
+        <input type="password" name="motdepasse" required />
+
+        <input type="submit" value="Créer un compte" />
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<body>
+		<h1> User Landing page test</h1>
+		
+        <h2>List of Commandes</h2>
+        
+        <table border="1">
+            <tr><th>Commande</th><th>Usr_Email</th></tr>
+            <tr th:each="commande : ${commandes}">
+                <td th:text="${commande.nomCommande}"></td>
+                <td th:text="${commande.users}"></td>
+            </tr>
+    
+        </table>
+        <hr>
+		
+		
+			
+	</body>
+	
+</html>
