@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +55,13 @@ public class CommandesController {
             redirectAttributes.addFlashAttribute("error", "Session Invalide. Veuillez vous reconnecter.");
             return new RedirectView("redirect:/store/home");
         }
+
+        // // caution for delete
+
+        // if(!usrService.existById(user_email)){
+        //     Optional<Users> user = new Users(user_email.get());
+        //     usrService.create(user);
+        // }
 
         Users user = usrService.findByEmail(user_email).orElse(null); // if error here
 
@@ -166,24 +175,32 @@ public class CommandesController {
         return new ModelAndView("/store/printCommande", model);
     }
 
+    @GetMapping("/validateCommande")
+    public ModelAndView validateCommande(
+        @RequestParam Long id,
+        HttpSession session,
+        RedirectAttributes redirectAttributes) {
+        //Long idCommande = (Long) session.getAttribute("idCommande");
+    
+        Optional<Commandes> commande = comService.findById(id);
 
-    // @PostMapping("/validateCommande")
-    // public RedirectView validateCommande(
-    //     @RequestParam Long id,
-    //     HttpSession session,
-    //     RedirectAttributes redirectAttributes
-    // ){
-    //     Long idCommande = (Long) session.getAttribute("idCommande");
-    //     System.out.println("check ======> idCommande: In validate commande " + idCommande);
 
-    //     if(idCommande == null){
-    //         redirectAttributes.addFlashAttribute("error", "No item yet to display!!!");
-    //         return new RedirectView("/commandes/commandes");
-    //     }
+        
+        if (commande.isPresent()) {
+            Commandes cmdToValidate = commande.get();
+            System.out.println("check ======> idCommande: In validate commande " + cmdToValidate.getId());
 
-    //     comService.deleteById(id);
-    //     return new RedirectView("/commandes/commandes");
-    // }
+            artService.validateArticleByID(id);
+            comService.deleteCommandeById(id);
+            
+            redirectAttributes.addFlashAttribute("successValidated", "Commande validated successfully!");
+            return new ModelAndView("redirect:/commandes/commandes");
+
+        } else {
+            return new ModelAndView("redirect:/store/connected");
+        }
+    }
+
 
 
     @GetMapping("/test")

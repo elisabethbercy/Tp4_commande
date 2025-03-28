@@ -4,6 +4,7 @@ package com.example.tp4_commande.articles;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.tp4_commande.commandes.Commandes;
@@ -111,7 +113,33 @@ public class ArticlesController {
         artService.deleteArticleByID(idArticle);
 
         return new RedirectView("/articles/article?idCommande="+ idCommande);
-    }        
+    } 
+    
+    
+    // @PostMapping("/validateCommande/{idCommande}")
+    // public ModelAndView validateCommande(
+    //     @PathVariable Long id,
+    //     RedirectAttributes redirectAttributes) {
+    
+    //     Optional<Commandes> commande = comService.findById(id);
+        
+    //     if (commande.isPresent()) {
+    //         Commandes cmdToValidate = commande.get();
+    //         System.out.println("check ======> idCommande: In validate commande " + cmdToValidate.getId());
+    
+    //         artService.validateArticleByID(id);
+            
+    //         redirectAttributes.addFlashAttribute("successValidated", "Commande validated successfully!");
+    //         return new ModelAndView("redirect:/store/articles");
+
+    //     } else {
+    //         return new ModelAndView("redirect:/store/connected");
+    //     }
+    // }
+    
+
+
+    
     
     @PostMapping("/backToCommande")
     public RedirectView backToCommande(

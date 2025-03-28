@@ -30,7 +30,7 @@ public class Users {
 	private String prenom;
 	private String motdepasse;
 
-	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "users",  cascade = CascadeType.ALL)
 	private List<Commandes> commandes;
 
 	

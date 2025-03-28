@@ -7,6 +7,7 @@ import java.util.List;
 import com.example.tp4_commande.articles.Articles;
 import com.example.tp4_commande.users.Users;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class Commandes {
     private Users users;
 
     // joining nomCommande column to article table
-    @OneToMany(mappedBy = "commandes", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "commandes", cascade = CascadeType.ALL)
     private List<Articles> articles;
 
     public Commandes(String nomCommande, Users users) {

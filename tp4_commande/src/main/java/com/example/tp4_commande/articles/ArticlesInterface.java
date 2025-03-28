@@ -20,6 +20,8 @@ public interface ArticlesInterface {
 
     void deleteArticleByID(Long id);
 
+    void validateArticleByID(Long id);
+
    
 
     

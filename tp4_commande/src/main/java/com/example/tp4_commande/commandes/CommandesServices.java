@@ -63,4 +63,11 @@ public class CommandesServices implements CommandesInterface{
     public Optional<Commandes> findById(Long id) {
         return c_repo.findById(id);
     }
+
+
+    @Override
+    public void deleteCommandeById(Long id) {
+        
+        c_repo.deleteById(id);
+    }
 }

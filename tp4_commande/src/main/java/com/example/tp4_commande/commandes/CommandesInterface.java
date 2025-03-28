@@ -20,4 +20,6 @@ public interface CommandesInterface {
     Optional<Commandes> findById(Long id);
 
     Commandes connected();
+
+    void deleteCommandeById(Long id);
 }

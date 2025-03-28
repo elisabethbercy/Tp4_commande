@@ -80,6 +80,7 @@
 
         <h2>List of Commands</h2>
         <p th:if="${errorCommandeNull}" class="message" th:text="${errorCommandeNull}"></p>
+        <p th:if="${successValidated}" class="message" th:text="${successValidated}"></p>
 
         <table>
             <tr>
@@ -92,6 +93,9 @@
                 </td>
                 <td>
                     <a th:href="@{/commandes/printCommande(id=${commande.id})}">Print</a>
+                </td>
+                <td>
+                    <a th:href="@{/commandes/validateCommande(id=${commande.id})}">Validate</a>
                 </td>
             </tr>
         </table>

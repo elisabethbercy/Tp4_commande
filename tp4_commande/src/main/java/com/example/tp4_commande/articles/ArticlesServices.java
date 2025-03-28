@@ -1,17 +1,33 @@
 package com.example.tp4_commande.articles;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.tp4_commande.commandes.CommandeProducer;
 import com.example.tp4_commande.commandes.Commandes;
+import com.example.tp4_commande.commandes.CommandesRepository;
+import com.example.tp4_commande.commandes.CommandesServices;
+
+
 
 @Service
 public class ArticlesServices implements ArticlesInterface {
 
     @Autowired
     private ArticlesRepository aRepo;
+
+    @Autowired
+    private CommandesRepository cRepo;
+
+    @Autowired
+    private CommandeProducer cProducer;
+
+    @Autowired 
+    private CommandesServices comService;
 
     @Override
     public Articles newArticle(String nomArticle, int qteArticle, int prixArticle, Commandes commandes) {
@@ -56,6 +72,25 @@ public class ArticlesServices implements ArticlesInterface {
     @Override
     public void deleteArticleByID(Long id) {
         aRepo.deleteById(id);
+    }
+
+    @Override
+    public void validateArticleByID(Long id) {
+
+        Optional<Commandes> commande = cRepo.findById(id);
+
+       if(commande.isPresent()){
+            Commandes cmdToValidate = commande.get();
+            List<Articles> articles = aRepo.findByCommandes(cmdToValidate);
+
+            for(Articles article : articles){
+                cProducer.produce(article);
+            }
+
+            
+        }else{
+            throw new NoSuchElementException("Commande not found with id: " + id);
+        }
     }
 
    
